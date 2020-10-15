@@ -1,0 +1,99 @@
+﻿.centerTextAdmin {
+    margin: auto;
+    text-align: center;
+    background-color: gold;
+    max-width: 300px;
+    border-radius: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.admin {
+    background-color: gold;
+    border-radius: 10px;
+/*    margin-right: 20px;*/
+}
+
+.centerTextManager {
+    margin: auto;
+    text-align: center;
+    background-color: orange;
+    max-width: 330px;
+    border-radius: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.manager {
+    background-color: orange;
+    border-radius: 10px;
+}
+
+.centerTextDev {
+    margin: auto;
+    text-align: center;
+    background-color: lavender;
+    max-width: 300px;
+    border-radius: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.developer {
+    background-color: lavender;
+    border-radius: 10px;
+}
+
+.centerTextSubmitter {
+    margin: auto;
+    text-align: center;
+    background-color: lightgreen;
+    max-width: 300px;
+    border-radius: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.submitter {
+    background-color: lightgreen;
+    border-radius: 10px;
+}
+
+.customFlex {
+    max-width: 150px;
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    justify-content: space-between;
+}
+
+.textColor {
+    color: wheat;
+}
+
+.projectContainer {
+    display: flex;
+    width: 100%;
+/*    justify-content: space-between;*/    
+    box-sizing: border-box;
+    flex-flow: wrap;
+}
+
+.projectInfo {
+    background-color: lightsteelblue;
+    padding: 5px;
+    border-radius: 20px;
+    width: 30%;
+    box-sizing: border-box;
+    margin: 10px;
+}
+
+/*.btnBorder {
+    border: black solid 2px;
+}*/
+
+.btnShadow {
+    -moz-box-shadow: inset 0 0 5px #000000;
+    -webkit-box-shadow: inset 0 0 5px #000000;
+    box-shadow: inset 0 0 5px #000000;
+}

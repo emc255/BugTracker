@@ -1,0 +1,144 @@
+﻿@using Microsoft.AspNet.Identity
+@using PagedList.Mvc;
+@model PagedList.IPagedList<BugTracker.Models.ProjectClasses.Ticket>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class=@ViewBag.classView>Tickets</h2>
+
+<br />
+<span style="float: right">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchBy = Request.QueryString["seacrhBy"], search = Request.QueryString["search"] }))
+</span>
+
+@if (User.IsInRole("Submitter")) {
+    <p class="btn btn-info btn-lg">
+        @Html.ActionLink("Create New", "CreateTicket")
+    </p>
+}
+
+<p class="btn btn-info btn-lg">
+    @Html.ActionLink("View All Ticket", "Index")
+</p>
+
+@if (User.IsInRole("Submitter")) {
+    <p class="btn btn-info btn-lg">
+        @Html.ActionLink("My Ticket", "Index", new { userId = User.Identity.GetUserId() })
+    </p>
+}
+
+<br />
+<br />
+
+<table class="table table-striped" style="background-color: white">
+    <tr>
+        <th>
+            @Html.ActionLink("Ticket Creator", "Index", new { sortOrder = ViewBag.NameSortParm, TitleHolder = ViewBag.TitleHolder, userId = ViewBag.userId })
+        </th>
+        <th>
+            @Html.ActionLink("Project Name", "Index", new { sortOrder = ViewBag.ProjectSortParm, TitleHolder = ViewBag.TitleHolder, userId = ViewBag.userId })
+        </th>
+        <th>
+            @Html.ActionLink("Title", "Index", new { sortOrder = ViewBag.TitleSortParm, TitleHolder = ViewBag.TitleHolder, userId = ViewBag.userId })
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            @Html.ActionLink("Date Created", "Index", new { sortOrder = ViewBag.DateSortParm, TitleHolder = ViewBag.TitleHolder, userId = ViewBag.userId })
+        </th>
+        <th>
+            @Html.ActionLink("Priority", "Index", new { sortOrder = ViewBag.PrioritySortParm, TitleHolder = ViewBag.TitleHolder, userId = ViewBag.userId })
+        </th>
+        <th>
+            @Html.ActionLink("Developer Assign", "Index", new { sortOrder = ViewBag.DevSortParm, TitleHolder = ViewBag.TitleHolder, userId = ViewBag.userId })
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OwnerUser.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Project.Name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Created)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketPriority.Priority)
+            </td>
+            @if (item.AssignedToUserId != null) {
+                <td>
+                    @Html.DisplayFor(modelItem => item.AssignedToUser.UserName)
+                </td>
+            } else {
+                <td>
+                    Not assigned
+                </td>
+            }
+
+        <td>
+            @if (this.User.Identity.GetUserId() == item.OwnerUserId && !(User.IsInRole("Admin") || User.IsInRole("Manager")))
+            {
+                <span>@Html.ActionLink("Edit", "UpdateTicketBySubmitter", new { ticketId = item.Id }) |</span>
+                <span>@Html.ActionLink("Delete", "DeleteTicket", new { ticketId = item.Id }) |</span>
+                <span>@Html.ActionLink("Comments", "Index", "TicketComment", new { ticketId = item.Id }, null) |</span>
+                <span>@Html.ActionLink("Full Details", "FullDetailOfTicketById", new { ticketId = item.Id }, null) |</span>
+                <span>@Html.ActionLink("History", "History", new { ticketId = item.Id }) |</span>
+                <span>@Html.ActionLink("Attachments", "Index", "TicketAttachment", new { ticketId = item.Id }, null)</span>
+            }
+
+            @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+            {
+                <span>@Html.ActionLink("Edit", "UpdateTicketBySubmitter", new { ticketId = item.Id }) |</span>
+                <span>@Html.ActionLink("Delete", "DeleteTicket", new { ticketId = item.Id }) |</span>
+                <span>@Html.ActionLink("Assign", "AssignTicket", new { ticketId = item.Id }) |</span>
+                <span>@Html.ActionLink("Comments", "Index", "TicketComment", new { ticketId = item.Id }, null) |</span>
+                <span>@Html.ActionLink("Full Details", "FullDetailOfTicketById", new { ticketId = item.Id }, null) |</span>
+                <span>@Html.ActionLink("History", "History", new { ticketId = item.Id }) |</span>
+                <span>@Html.ActionLink("Attachments", "Index", "TicketAttachment", new { ticketId = item.Id }, null)</span>
+
+            }
+
+            @if (User.IsInRole("Developer") && this.User.Identity.GetUserId() == item.AssignedToUserId)
+            {
+                <span>@Html.ActionLink("Edit", "UpdateTicketBySubmitter", new { ticketId = item.Id }) |</span>
+                <span>@Html.ActionLink("Comments", "Index", "TicketComment", new { ticketId = item.Id }, null) |</span>
+                <span>@Html.ActionLink("Full Details", "FullDetailOfTicketById", new { ticketId = item.Id }, null) |</span>
+                <span>@Html.ActionLink("History", "History", new { ticketId = item.Id }) |</span>
+                <span>@Html.ActionLink("Attachments", "Index", "TicketAttachment", new { ticketId = item.Id }, null)</span>
+            }
+        </td>
+        </tr>
+    }
+
+</table>
+
+<br />
+<br />
+
+<div>
+    @if (User.IsInRole("Admin")) {
+        <span class="btn btn-default btnShadow">@Html.ActionLink("Back To DashBoard", "Index", "Admin")</span>
+    } else if (User.IsInRole("Manager")) {
+        <span class="btn btn-default btnShadow">@Html.ActionLink("Back To DashBoard", "Index", "Manager")</span>
+    } else if (User.IsInRole("Developer")) {
+        <span class="btn btn-default btnShadow">@Html.ActionLink("Back To DashBoard", "Index", "Developer")</span>
+
+    }
+</div>
+
+<br />

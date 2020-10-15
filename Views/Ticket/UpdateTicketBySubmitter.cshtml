@@ -1,0 +1,87 @@
+﻿@model BugTracker.Models.CreateTicketViewModel
+@{
+    ViewBag.Title = "UpdateTicketBySubmitter";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (User.IsInRole("Admin"))
+{
+    <h2 class="centerTextAdmin">Update Ticket</h2>
+}
+else if (User.IsInRole("Manager"))
+{
+<h2 class="centerTextManager">Update Ticket</h2>
+}
+else if (User.IsInRole("Developer"))
+{
+<h2 class="centerTextDev">Update Ticket</h2>
+}
+else if (User.IsInRole("Submitter"))
+{
+<h2 class="centerTextSubmitter">Update Ticket</h2>
+}
+
+<br />
+
+@using (Html.BeginForm("UpdateTicketBySubmitter", "Ticket", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.TicketTypeName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.TicketTypeName, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Priority, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownList("priority", EnumHelper.GetSelectList(typeof(BugTracker.Models.ProjectClasses.Priority)), new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Created, new { @class = "col-md-2 control-label" })
+        <div class="col-md-2 control-label">
+            @Html.TextBoxFor(m => m.Created, new { @class = "form-control", @readonly = "readonly" })
+         
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-2 col-md-10 col-lg-offset-2">
+            <input type="submit" class="btn btn-default" value="Update" />
+        </div>
+    </div>
+}
+@*@Html.ActionLink("Back to Dashboard", "Index")*@
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<br />
+<br />
+
+<div>
+    <span class="btn btn-default btnShadow">@Html.ActionLink("Back To Tickets", "Index", "Ticket")</span>
+    @if (User.IsInRole("Admin"))
+    {
+        <span class="btn btn-default btnShadow">@Html.ActionLink("Back To DashBoard", "Index", "Admin")</span>
+    }
+    else if (User.IsInRole("Manager"))
+    {
+        <span class="btn btn-default btnShadow">@Html.ActionLink("Back To DashBoard", "Index", "Manager")</span>
+    }
+</div>

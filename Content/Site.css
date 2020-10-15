@@ -1,0 +1,157 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    background-image: url('Images/bg2.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: auto;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.centerTextAdmin {
+    margin: auto;
+    text-align: center;
+    background-color: gold;
+    max-width: 300px;
+    border-radius: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.admin {
+    background-color: gold;
+    border-radius: 10px;
+}
+
+.centerTextManager {
+    margin: auto;
+    text-align: center;
+    background-color: turquoise;
+    max-width: 300px;
+    border-radius: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.manager {
+    background-color: turquoise;
+    border-radius: 10px;
+}
+
+.centerTextDev {
+    margin: auto;
+    text-align: center;
+    background-color: lavender;
+    max-width: 300px;
+    border-radius: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.developer {
+    background-color: lavender;
+    border-radius: 10px;
+}
+
+.centerTextSubmitter {
+    margin: auto;
+    text-align: center;
+    background-color: lightgreen;
+    max-width: 300px;
+    border-radius: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.submitter {
+    background-color: lightgreen;
+    border-radius: 10px;
+}
+
+.customFlex {
+    max-width: 150px;
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    justify-content: space-between;
+}
+
+.SearchBar {
+    position: relative;
+}
+
+#titles {
+    position: absolute;
+    z-index: 1;
+    left: 1px;
+    top: 55px;
+    text-align: left;
+    background-color: white;
+    padding-left: 15px;
+    font-size: 20px;
+}
+
+#titles li {
+    list-style: none;
+}
+
+#titles li a {
+    text-decoration: none;
+}
+
+.carousel {
+    background: #EEE;
+    width: 900px;
+    height: 380px;
+}
+
+.carousel-cell {
+    width: 100%;
+    height: 380px;
+   
+}
+
+
+/* big buttons, no circle */
+.flickity-prev-next-button {
+    /*width: 20px;*/
+    height: 100px;
+    background: transparent;
+}
+
+/* arrow color */
+.flickity-prev-next-button .arrow {
+    fill: blue;
+}
+
+.flickity-prev-next-button.no-svg {
+    color: blue;
+}
+
+.flickity-prev-next-button:hover {
+    background: transparent;
+}
+
+/* hide disabled button */
+.flickity-prev-next-button:disabled {
+    display: none;
+}

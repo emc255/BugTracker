@@ -1,0 +1,64 @@
+﻿@model BugTracker.Models.ProjectClasses.Ticket
+@{
+    ViewBag.Title = "FullDetailOfTicketById";
+}
+
+<h2 class=@ViewBag.classView>Full Detail Of Ticket</h2>
+
+<p><label>Title: </label> @Model.Title</p>
+<p><label>Description: </label> @Model.Description</p>
+<div><label>Comments: </label></div>
+@if (Model.TicketComments != null)
+{
+    foreach (var ticketComment in Model.TicketComments)
+    {
+        <div>
+            <span>@ticketComment.Comment - </span>
+            <span>@ticketComment.Created.ToString("dd MMM yyyy")</span>
+        </div>
+    }
+}
+else
+{
+    <p>no comments</p>
+}
+
+<br />
+
+<div><label>History: </label></div>
+@if (Model.TicketHistories != null)
+{
+    foreach (var tickethistory in Model.TicketHistories)
+    {
+        <div>
+            <span>New: @tickethistory.NewValue - </span>
+            <span>Old: @tickethistory.OldValue</span>
+        </div>
+    }
+}
+else
+{
+    <p>no history</p>
+}
+
+<br />
+
+<div><label>Attachments: </label></div>
+@if (Model.TicketAttachments != null)
+{
+    foreach (var ticketAttachment in Model.TicketAttachments)
+    {
+        <img src=@ticketAttachment.FileURL style="width: 300px; height:300px"/>
+    }
+}
+else
+{
+    <p>no Attachment</p>
+}
+
+<br />
+<br />
+
+<span class="btn btn-default btnShadow">@Html.ActionLink("Back", "Index", "Ticket")</span>
+
+<br />

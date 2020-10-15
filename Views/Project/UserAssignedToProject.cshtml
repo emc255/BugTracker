@@ -1,0 +1,46 @@
+﻿@model List<BugTracker.Models.ProjectClasses.ProjectUser>
+@{
+    ViewBag.Title = "UserAssignedToProject";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (User.IsInRole("Admin"))
+{
+    <h2 class="centerTextAdmin">User assigned to Project</h2>
+}
+else
+{
+    <h2 class="centerTextManager">User assigned to Project</h2>
+}
+
+<br />
+
+<ul>
+    @foreach (var projuser in Model)
+    {
+        <li>
+            <label>Project Id :</label>  @projuser.ProjectId
+            <ol>
+                <label>User Assigned :</label>  @projuser.UserId
+
+            </ol>
+        </li>
+
+    }
+
+</ul>
+
+<br />
+<br />
+
+<div>
+    <span class="btn btn-default btnShadow">@Html.ActionLink("Back To Project", "Index", "Project")</span>
+    @if (User.IsInRole("Admin"))
+    {
+        <span class="btn btn-default btnShadow">@Html.ActionLink("Back To DashBoard", "Index", "Admin")</span>
+    }
+    else
+    {
+        <span class="btn btn-default btnShadow">@Html.ActionLink("Back To DashBoard", "Index", "Manager")</span>
+    }
+</div>

@@ -1,0 +1,55 @@
+﻿@model List<BugTracker.Models.ProjectClasses.UserInfoHolder>
+@{
+    ViewBag.Title = "GetAllUsersInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="centerTextAdmin">Get All Users Info</h2>
+
+<br />
+<br />
+
+
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayName("Name")
+        </th>
+        <th>
+            @Html.DisplayName("Roles")
+        </th>
+        <th>
+            @Html.DisplayName("Delete User")
+        </th>
+        
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+    @foreach (var role in item.RolesInfo)
+    {
+        
+        @Html.DisplayFor(modelItem => role.Name) <span>|</span>
+        
+    }
+    </td>
+    <td>
+        @Html.ActionLink("Delete User", "DeleteUser", "Admin", new { userId = item.Id }, null)
+    </td>
+</tr>
+    }
+
+</table>
+
+<br />
+<br />
+
+<div>
+    <span class="btn btn-default btnShadow">@Html.ActionLink("Go back", "Index", "Admin")</span>
+</div>
+

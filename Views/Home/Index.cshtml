@@ -1,0 +1,63 @@
+﻿@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+        if (User.IsInRole("Admin"))
+        {
+            <div class="btn btn-info btn-lg">
+                @Html.ActionLink("Manage your Account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </div>
+            <div class="btn btn-info btn-lg">
+                @Html.ActionLink("Go to the dashboard", "Index", "Admin")
+            </div>
+        }
+        else if (User.IsInRole("Manager"))
+        {
+            <div class="btn btn-info btn-lg">
+                @Html.ActionLink("Manage your Account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </div>
+            <div class="btn btn-info btn-lg">
+                @Html.ActionLink("Go to the dashboard", "Index", "Manager")
+            </div>
+        }
+        else if (User.IsInRole("Developer"))
+        {
+            <div class="btn btn-info btn-lg">
+                @Html.ActionLink("Manage your Account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </div>
+            <div class="btn btn-info btn-lg">
+                @Html.ActionLink("Go to the dashboard", "Index", "Developer")
+            </div>
+        }
+        else if (User.IsInRole("Submitter"))
+        {
+            <div class="btn btn-info btn-lg">
+                @Html.ActionLink("Manage your Account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </div>
+            <div class="btn btn-info btn-lg">
+                @Html.ActionLink("Go to the dashboard", "Index", "Submitter")
+            </div>
+        }
+    }
+}
+else
+{
+    <br />
+    <br />
+    <div class="jumbotron" style="text-align: center">
+        <h3>Bug Tracker - Project and Ticket management software for your team.</h3>
+        <br />
+        @Html.ActionLink("DEMO", "Demo", "Home", new { @class = "btn btn-primary btn-lg" })
+    </div>
+}
+
+<br />
+<br />
+<br />
+<br />

@@ -1,0 +1,86 @@
+﻿@model Nullable<Boolean>
+@{
+    ViewBag.Title = "AddUserToRole";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="centerTextAdmin">Assign User to Role</h2>
+
+<br />
+<br />
+
+@if (Model == null)
+{
+    <div class="btn-lg dropdown-toggle">
+        @using (Html.BeginForm())
+        {
+            <div class="form-group">
+                <div class="col-md-10">
+                    @Html.DropDownList("userId",null, new { @class = "form-control" })
+
+                </div>
+            </div>
+
+            <br />
+            <br />
+
+            <div class="form-group">
+                <div class="col-md-10">
+                    @Html.DropDownList("role", null, new { @class = "form-control" })
+
+                </div>
+            </div>
+
+            <br />
+            <br />
+
+            <div>
+                <input type="submit" value="Assign" class="btn btn-default" style="margin-left: 15px" />
+            </div>
+
+        }
+    </div>
+
+
+}
+else if (Model == false)
+{
+    <h2 class="centerText">User in the role</h2>
+
+}
+
+
+<br />
+<br />
+
+<div>
+    <span class="btn btn-default btnShadow">@Html.ActionLink("Go back", "Index", "Admin")</span>
+</div>
+
+<script type="text/javascript" src="~/packages/jQuery.3.4.1/Content/Scripts/jquery-3.4.1.min.js"></script>
+
+<script type="text/javascript">
+
+    function GetRoles() {
+        var userId = $("#userId").val();
+        $.ajax({
+            type: "GET",
+            url: 'GetRolesForUser',
+            data: { userId: userId },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+
+            success: function (roles) {
+
+                // Looping over emloyee list and display it
+                $("#role").html("");
+                $.each(roles, function (i, role) {
+                    $("#role").append(
+                        $('<option></option>').val(role.Name).html(role.Name));
+                });
+            },
+
+
+        });
+    }
+</script>
